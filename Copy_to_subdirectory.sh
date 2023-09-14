@@ -1,4 +1,5 @@
 #!/bin/bash
+#copy all files of Filetype from subdirectory to directory
 Filetype=pdf
 VAR=$(ls -d */)
 VAR=${VAR// /.}
