@@ -1,0 +1,10 @@
+  GNU nano 4.8                        test2.sh                        Modified  
+#! /bin/bash
+ipvar="192.168.101.2"
+alive=$(fping -c 1 ${ipvar} | awk -F: '{ print $1 }')
+alive="${alive// /}"
+if [ "$alive" = "$ipvar" ]; then
+        echo "$alive online"
+else
+        echo "$alive offline"
+fi
