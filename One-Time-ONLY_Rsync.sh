@@ -2,16 +2,18 @@
 #
 #Syncs remote directory to local directory and logs files to EXCLUDE future resync of the same files.  Useful if moving/editing files in local dir after syncing.
 #
-#vars
+#custom vars
 localfiledir='/local/fileDirectory'
 locallogdir='/local/logDirectory'
 remotedir='/remote/fileDirectory'
 remoteuser='username'
 remoteIP='192.168.0.1'
 #
+#vars
 sedfiledir=$(echo "${localfiledir////$'\/'}")
 date=$(date +%Y-%m-%d_%H:%M:%S)
-#first-run logging
+#
+#first-run logging of existing files in localfiledir
 if [[ ! -e ${locallogdir}/nosyncfinal.txt ]]; then
 	touch ${locallogdir}/nosyncfinal.txt
 	find ${localfiledir}/ -maxdepth 1 -type f > ${locallogdir}/files.txt #list files
@@ -29,7 +31,7 @@ fi
 #rsync
 rsync -a --progress --exclude-from "${locallogdir}/nosyncfinal.txt" ${remoteuser}@${remoteIP}:${remotedir}/ ${localfiledir}
 #
-#logging to prevent re-sync
+#post-sync logging of files in localfiledir to prevent future re-sync
 find ${localfiledir}/ -maxdepth 1 -type f > ${locallogdir}/files.txt #list files
 sed -i "s/$sedfiledir\///g" ${locallogdir}/files.txt #filename only
 sed -i '/^$/d' ${locallogdir}/files.txt #remove whitespace
