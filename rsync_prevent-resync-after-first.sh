@@ -28,17 +28,17 @@ if [[ ! -e ${locallogdir}/nosyncfinal.txt ]]; then
 	rm -rf ${locallogdir}/nosync.txt ${locallogdir}/files.txt ${locallogdir}/dirs.txt #cleanup
 fi
 #
-#rsync
+#rsync & exclude files listed in ${locallogdir}/nosyncfinal.txt
 rsync -a --progress --exclude-from "${locallogdir}/nosyncfinal.txt" ${remoteuser}@${remoteIP}:${remotedir}/ ${localfiledir}
 #
-#post-sync logging of files in localfiledir to prevent future re-sync
-find ${localfiledir}/ -maxdepth 1 -type f > ${locallogdir}/files.txt #list files
-sed -i "s/$sedfiledir\///g" ${locallogdir}/files.txt #filename only
-sed -i '/^$/d' ${locallogdir}/files.txt #remove whitespace
-find ${localfiledir}/ -maxdepth 1 -type d > ${locallogdir}/dirs.txt #list directories
-sed -i "s/$sedfiledir\///g" ${locallogdir}/dirs.txt #dirname only
-sed -i '/^$/d' ${locallogdir}/dirs.txt #remove whitespace
-cat ${locallogdir}/files.txt ${locallogdir}/dirs.txt ${locallogdir}/nosyncfinal.txt > ${locallogdir}/nosync.txt #combine
-awk '!seen[$0]++' ${locallogdir}/nosync.txt > ${locallogdir}/nosyncfinal.txt #remove duplicates
-cp ${locallogdir}/nosyncfinal.txt ${locallogdir}/nosync_${date}.txt #log
-rm -rf ${locallogdir}/nosync.txt ${locallogdir}/files.txt ${locallogdir}/dirs.txt #cleanup
+#post-sync logging of files in localfiledir
+find ${localfiledir}/ -maxdepth 1 -type f > ${locallogdir}/files.txt
+sed -i "s/$sedfiledir\///g" ${locallogdir}/files.txt
+sed -i '/^$/d' ${locallogdir}/files.txt
+find ${localfiledir}/ -maxdepth 1 -type d > ${locallogdir}/dirs.txt
+sed -i "s/$sedfiledir\///g" ${locallogdir}/dirs.txt
+sed -i '/^$/d' ${locallogdir}/dirs.txt
+cat ${locallogdir}/files.txt ${locallogdir}/dirs.txt ${locallogdir}/nosyncfinal.txt > ${locallogdir}/nosync.txt
+awk '!seen[$0]++' ${locallogdir}/nosync.txt > ${locallogdir}/nosyncfinal.txt
+cp ${locallogdir}/nosyncfinal.txt ${locallogdir}/nosync_${date}.txt
+rm -rf ${locallogdir}/nosync.txt ${locallogdir}/files.txt ${locallogdir}/dirs.txt
