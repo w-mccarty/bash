@@ -2,6 +2,7 @@
 
 # IF "~/.profile" IS EDITED INCORRECTLY A LOGIN LOOP OR OTHER SERIOUS ERROR CAN OCCUR
 # SCRIPT CREATOR IS NOT RESPONSIBLE FOR ANY DAMAGE CAUSED BY THIS SCRIPT
+# TESTED ON UBUNTU 24.04 LTS
 
 ############################################ SETUP ############################################
 
