@@ -18,8 +18,6 @@
 
 ########################################### SCRIPT ###########################################
 
-gdbus monitor -y -d org.freedesktop.login1 | 
-	grep --line-buffered -o 'Session.Unlock ()' |
-		while read -r; do
-			echo "SCRIPT CONTENTS GO HERE"
-		done
+gdbus monitor -y -d org.freedesktop.login1 | grep --line-buffered -o 'Session.Unlock ()' | while read -r; do
+	echo "SCRIPT CONTENTS GO HERE"
+done
