@@ -1,0 +1,11 @@
+PATHIN="/home/user/1"
+PATHOUT="/home/user/2"
+
+random_string() {
+  echo "$(date +%s%N)$RANDOM" | md5sum | head -c 8 | awk '{print $1}'
+}
+
+find $PATHIN -type f | while read FILE; do
+  EXTENSION=${FILE##*.}
+  mv "$FILE" "$PATHOUT/$(random_string).$EXTENSION"
+done
