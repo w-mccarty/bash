@@ -12,16 +12,16 @@ while getopts ":s" option; do
 done
 
 function compileSuccess() {
-        echo "Compile SUCCEEDED"
+        echo "Compile SUCCEEDED. Starting Upload..."
         ~/bin/arduino-cli upload -p $1 --fqbn $2 $3
 }
 
 function compileFailed() {
-        echo "Compile FAILED"
+        echo "Compile FAILED."
 }
 
 vCOMP=$PWD
-echo "Compiling ${vCOMP}"
+echo "Compiling ${vCOMP}..."
 vLIST=$(~/bin/arduino-cli board list | sed -n '2 p')
 vPORT=$(printf "${vLIST}" | grep '/dev/tty*' | cut -f1 -d ' ')
 vFQBN=$(printf "${vLIST}" | grep 'arduino:*' | rev | cut -f2 -d ' ' | rev )
