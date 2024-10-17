@@ -1,9 +1,10 @@
 #!/bin/bash
-###############################################################################################
-# FLAGS                                                                                       #
+########################################### FLAGS #############################################
+#                                                                                             #
 #    -p /path/to/folder/    path to folder that holds .ino file (default current directory    #
 #    -b ####                baud (default 9600)                                               #
 #    -s                     launch screen serial with configured/default baud after upload    #
+#                                                                                             #
 ###############################################################################################
 
 while getopts :sp:b: flag
