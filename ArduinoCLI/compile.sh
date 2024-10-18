@@ -13,8 +13,8 @@ function echoInfo() {
 	echo " "
 	echo "######################################## FLAGS ########################################"
 	echo "                                                                                       "
-	echo " -?                     print flags                                                    "
-	echo " -r                     setup board variables                                          "
+	echo " -?                     help                                                           "
+	echo " -r                     setup core list                                                "
 	echo " -n name                create new sketch in current directory with name               "
 	echo " -p /path/to/folder/    path to folder with .ino file (default current directory       "
 	echo " -b #                   baud (default 9600)                                            "
@@ -75,13 +75,13 @@ function compileFailed() {
 	exit 1
 }
 if [ ! -f "$filePORT" ] || [ ! -f "$fileFQBN" ] || [ ! -f "$fileCORE" ]; then
-	echo "board variable files not found... running initial setup"
+	echo "core list not found... running initial setup"
 	fSetup
 fi
 modsecs=$(date --utc --reference=$fileCORE +%s)
 nowsecs=$(date +%s)
 delta=$(($nowsecs-$modsecs))
-echo "board variable files updated ${delta} seconds ago"
+echo "core list updated ${delta} seconds ago"
 if [ $delta -gt 86400 ]; then
 	echo "re-running board variable setup..."
 	fSetup
