@@ -284,17 +284,17 @@ f_deviceStats () {
 	}
 
 	f_publicStats () {
-	clear
-        bv=$(curl ipinfo.io )
-        bv1=$(echo $bv | grep  -oP 'ip": "\K.*?(?=",)')
-        bv2=$(echo $bv | grep  -oP 'hostname": "\K.*?(?=",)')
-        bv3=$(echo $bv | grep  -oP 'city": "\K.*?(?=",)')
-        bv4=$(echo $bv | grep  -oP 'region": "\K.*?(?=",)')
-        bv5=$(echo $bv | grep  -oP 'country": "\K.*?(?=",)')
-        bv6=$(echo $bv | grep  -oP 'loc": "\K.*?(?=",)')
-        bv7=$(echo $bv | grep  -oP 'org": "\K.*?(?=",)')
-        bv8=$(echo $bv | grep  -oP 'postal": "\K.*?(?=",)')
-        bv9=$(echo $bv | grep  -oP 'timezone": "\K.*?(?=",)')
+		clear
+        	bv=$(curl ipinfo.io )
+       		bv1=$(echo $bv | grep  -oP 'ip": "\K.*?(?=",)')
+	        bv2=$(echo $bv | grep  -oP 'hostname": "\K.*?(?=",)')
+	        bv3=$(echo $bv | grep  -oP 'city": "\K.*?(?=",)')
+	        bv4=$(echo $bv | grep  -oP 'region": "\K.*?(?=",)')
+	        bv5=$(echo $bv | grep  -oP 'country": "\K.*?(?=",)')
+	        bv6=$(echo $bv | grep  -oP 'loc": "\K.*?(?=",)')
+        	bv7=$(echo $bv | grep  -oP 'org": "\K.*?(?=",)')
+	        bv8=$(echo $bv | grep  -oP 'postal": "\K.*?(?=",)')
+        	bv9=$(echo $bv | grep  -oP 'timezone": "\K.*?(?=",)')
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 		echo "public $bv1"
 		echo "hostname $bv2"
