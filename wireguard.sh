@@ -8,25 +8,6 @@ function findrule() {
 	echo "${rule}"
 }
 
-f_publicStats () {
-        bv=$(curl ipinfo.io )
-        bv1=$(echo $bv | grep  -oP 'ip": "\K.*?(?=",)')
-        bv2=$(echo $bv | grep  -oP 'hostname": "\K.*?(?=",)')
-        bv3=$(echo $bv | grep  -oP 'city": "\K.*?(?=",)')
-        bv4=$(echo $bv | grep  -oP 'region": "\K.*?(?=",)')
-        bv5=$(echo $bv | grep  -oP 'country": "\K.*?(?=",)')
-        bv6=$(echo $bv | grep  -oP 'loc": "\K.*?(?=",)')
-        bv7=$(echo $bv | grep  -oP 'org": "\K.*?(?=",)')
-        bv8=$(echo $bv | grep  -oP 'postal": "\K.*?(?=",)')
-        bv9=$(echo $bv | grep  -oP 'timezone": "\K.*?(?=",)')
-        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-        echo "public $bv1"
-        echo "hostname $bv2"
-        echo "$bv3, $bv4, $bv5, $bv6"
-        echo "$bv7"
-        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-}
-
 function sudoN-send() {
 	local uname=$(who | head -n 1 | cut -d ' ' -f 1)
 	local uusid=$(id -u $uname)
@@ -49,8 +30,27 @@ function denyout {
         sudo ufw deny out on $j to any port 80
         sudo ufw deny out on $j to any port 443
 		sudo ufw deny out on $j to any port 53
-		sudoN-send "blocked wireless $j to 80 443 53"
+		sudoN-send "blocked interface $j to 80 443 53"
 	done
+}
+
+f_publicStats () {
+        bv=$(curl ipinfo.io )
+        bv1=$(echo $bv | grep  -oP 'ip": "\K.*?(?=",)')
+        bv2=$(echo $bv | grep  -oP 'hostname": "\K.*?(?=",)')
+        bv3=$(echo $bv | grep  -oP 'city": "\K.*?(?=",)')
+        bv4=$(echo $bv | grep  -oP 'region": "\K.*?(?=",)')
+        bv5=$(echo $bv | grep  -oP 'country": "\K.*?(?=",)')
+        bv6=$(echo $bv | grep  -oP 'loc": "\K.*?(?=",)')
+        bv7=$(echo $bv | grep  -oP 'org": "\K.*?(?=",)')
+        bv8=$(echo $bv | grep  -oP 'postal": "\K.*?(?=",)')
+        bv9=$(echo $bv | grep  -oP 'timezone": "\K.*?(?=",)')
+        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+        echo "public $bv1"
+        echo "hostname $bv2"
+        echo "$bv3, $bv4, $bv5, $bv6"
+        echo "$bv7"
+        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
 
 v1=$(findrule)
